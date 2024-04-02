@@ -4,7 +4,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.util.*;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -70,18 +70,7 @@ public class TestCases {
         radiobutton(list, "0 - 2",driver);
 
        }
-       
-       
-    //    for(WebElement item:list){
-    //     wait.until(ExpectedConditions.textToBePresentInElement(item,"0 - 2"));
 
-    //    }
-    //    if(status){
-    //     System.out.println("0-2 is selected ");
-    //    }
-    //    else
-    //    System.out.println("0-2 is not selected ");
-       
     public void testCase04() throws InterruptedException{
         JavascriptExecutor js=(JavascriptExecutor)driver;
         WebElement ques4=driver.findElement(By.xpath("//span[contains(text(),'Which of the following have you learned')]"));
@@ -90,6 +79,18 @@ public class TestCases {
         String arr[]={"Java","Selenium","TestNG"};
         checkboxselection(list4, arr, driver);
         Thread.sleep(10000);
+        }
+
+        public void testCase08() throws InterruptedException{
+            JavascriptExecutor js=(JavascriptExecutor)driver;
+         WebElement dropdown=driver.findElement(By.xpath("(//div[@class='e2CuFe eU809d' and @role='presentation'])[1]"));
+            js.executeScript("arguments[0].scrollIntoView(true);",dropdown);
+            
+            dropdown.click();
+            List<WebElement>list5=driver.findElements(By.xpath("//span[@class='vRMGwf oJeWuf']"));
+        dropdown(list5,driver,"Ms");
+
+
         }
 
         public void testCase05(){
@@ -185,9 +186,40 @@ public class TestCases {
                 listitem.click();
                 Thread.sleep(3000);
             }
-            
-
         }
+        List<WebElement> selectedlist=driver.findElements(By.xpath("//div[@role='checkbox']"));
+        ArrayList<String> arrlist=new ArrayList<>();
+
+        for(WebElement checkedvalue:selectedlist){
+            String selectvalue=checkedvalue.getAttribute("aria-checked");
+            // for(int i=0;i<=arr.length-1;i++){
+                
+            if(selectvalue.equals("true")){
+           arrlist.add(checkedvalue.getAttribute("data-answer-value"));
+           //System.out.println(checkedvalue.getAttribute("data-answer-value")+"selected successfully");
+            
+        }
+    }
+           for(String opt:arrlist)
+            System.out.println(opt);
+           
+            //System.out.println(options+" not selected successfully");
+        }
+    }
+
+        
+    
+    public static void dropdown(List<WebElement>list,WebDriver driver,String selectedval) throws InterruptedException{
+        for(WebElement val:list){
+            if(val.getText().equals(selectedval)){
+                Thread.sleep(10000);
+                val.click();
+                Thread.sleep(10000);
+
+            }
+        }
+
+
         }
     
 
@@ -202,11 +234,12 @@ public class TestCases {
     // }
 
  }
+
  
  
 
 
-}
+
 
 
 
